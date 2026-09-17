@@ -12,3 +12,9 @@ permalink: /team/
   <ul>{% for p in ps %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endfor %}</ul>
 </section>
 {% endfor %}
+
+<section class="card">
+  <h2>Want to join?</h2>
+  <p class="meta">Open a collaborator request and the repo owner will review it. Just have one post to share? Use <a href="{{ '/write/' | relative_url }}">Submit a post</a> instead — no GitHub account needed.</p>
+  <p><a class="btn" href="https://github.com/{{ site.github_user }}/{{ site.repo }}/issues/new?template=join-request.yml">Request to join on GitHub</a></p>
+</section>

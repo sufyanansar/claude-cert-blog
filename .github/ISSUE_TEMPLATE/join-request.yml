@@ -1,0 +1,40 @@
+name: Collaborator request
+description: Ask to join the Claude Certification Journal as a collaborator.
+title: "Collaborator request: <your GitHub handle>"
+labels: ["join-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest. Fill this in and the repo owner will review it.
+        You don't need to be a collaborator to contribute a single post — you can
+        use the [Submit a post](https://sufyanansar.github.io/claude-cert-blog/write/) form instead.
+  - type: input
+    id: name
+    attributes:
+      label: Your name
+      description: How you'd like to be credited on the Team page.
+    validations:
+      required: true
+  - type: input
+    id: github
+    attributes:
+      label: Your GitHub username
+      placeholder: octocat
+    validations:
+      required: true
+  - type: input
+    id: bio
+    attributes:
+      label: One-line bio
+      description: Shown next to your name on the Team page.
+      placeholder: Solutions engineer, working through the tool-use track
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What do you plan to write about?
+      description: A sentence or two on what you're working on and what you'd post.
+    validations:
+      required: true

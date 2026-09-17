@@ -10,7 +10,7 @@ url: "https://sufyanansar.github.io"
 permalink: /:year/:month/:day/:title/
 markdown: kramdown
 plugins: [jekyll-feed, jekyll-seo-tag]
-exclude: [README.md, _templates]
+exclude: [README.md, ADMIN.md, _templates]
 
 # Post categories shown as filters on the home page
 categories_list: [Progress, Findings, Research]
