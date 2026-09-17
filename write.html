@@ -1,40 +1,81 @@
 ---
 layout: default
-title: Write a post
+title: Submit a post
 permalink: /write/
 ---
-<h1>Write a post</h1>
-<p>Fill this in and click <b>Open in GitHub</b>. GitHub opens a new file with everything already filled in. Check it, then click <b>Commit changes</b>. Your post goes live in about a minute.</p>
+<h1>Submit a post</h1>
+<p>Write your post below, or upload a Markdown file. When you click <b>Submit for review</b>, your post is emailed to the blog admin. The admin checks it and publishes it.</p>
 
 <form id="w" class="card">
+  <label>Your name <input id="n" required></label>
+  <label>Your email (so we can reply) <input id="e" type="email" required></label>
   <label>Title <input id="t" required></label>
-  <label>Your author key (see the Team page) <input id="a" required placeholder="sufyan"></label>
   <label>Category
     <select id="c">{% for c in site.categories_list %}<option>{{ c }}</option>{% endfor %}</select>
   </label>
   <label>Tags (comma separated) <input id="g" placeholder="prompting, tool-use"></label>
+  <label>Upload a .md / .txt file (optional; it fills in the body below)
+    <input id="f" type="file" accept=".md,.markdown,.txt">
+  </label>
   <label>Body (Markdown)
-    <textarea id="b" rows="14">## What I worked on
+    <textarea id="b" rows="14" required>## What I worked on
 
 ## What I learned
 
 ## Resources
 </textarea>
   </label>
-  <button class="btn" type="submit">Open in GitHub</button>
+  <input type="text" id="hp" style="display:none" tabindex="-1" autocomplete="off">
+  <button class="btn" type="submit" id="s">Submit for review</button>
+  <p id="msg" class="meta"></p>
 </form>
 
 <script>
-  document.getElementById('w').onsubmit = function (e) {
-    e.preventDefault();
-    var v = function (id) { return document.getElementById(id).value.trim(); };
+  var $ = function (id) { return document.getElementById(id); };
+
+  $('f').onchange = function () {
+    var file = this.files[0];
+    if (!file) return;
+    if (file.size > 200000) { $('msg').textContent = 'That file is too large (max 200 KB).'; this.value = ''; return; }
+    file.text().then(function (txt) { $('b').value = txt; });
+  };
+
+  $('w').onsubmit = function (ev) {
+    ev.preventDefault();
+    if ($('hp').value) return; // honeypot: bots fill hidden fields
+    var v = function (id) { return $(id).value.trim(); };
     var date = new Date().toISOString().slice(0, 10);
     var slug = v('t').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     var tags = v('g').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-    var body = '---\nlayout: post\ntitle: "' + v('t').replace(/"/g, '\\"') + '"\n' +
-      'author: ' + v('a') + '\ncategory: ' + v('c') + '\ntags: [' + tags.join(', ') + ']\n---\n\n' +
-      document.getElementById('b').value + '\n';
-    window.open('https://github.com/{{ site.github_user }}/{{ site.repo }}/new/main/_posts?filename=' +
-      date + '-' + slug + '.md&value=' + encodeURIComponent(body), '_blank');
+    var filename = date + '-' + slug + '.md';
+    var markdown = '---\nlayout: post\ntitle: "' + v('t').replace(/"/g, '\\"') + '"\n' +
+      'author: ' + v('n') + '\ncategory: ' + v('c') + '\ntags: [' + tags.join(', ') + ']\n---\n\n' +
+      $('b').value + '\n';
+
+    $('s').disabled = true;
+    $('msg').textContent = 'Sending…';
+    fetch('https://formsubmit.co/ajax/{{ site.submissions_email }}', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Blog submission: ' + v('t'),
+        _template: 'box',
+        _captcha: 'false',
+        _replyto: v('e'),
+        name: v('n'),
+        email: v('e'),
+        title: v('t'),
+        category: v('c'),
+        tags: tags.join(', '),
+        save_as: '_posts/' + filename,
+        markdown_file: markdown
+      })
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (String(res.success) !== 'true') throw new Error(res.message || 'failed');
+      $('msg').textContent = 'Thanks! Your post was sent for review.';
+      $('w').reset();
+    }).catch(function (err) {
+      $('msg').textContent = 'Sending failed (' + err.message + '). Please try again later.';
+    }).finally(function () { $('s').disabled = false; });
   };
 </script>

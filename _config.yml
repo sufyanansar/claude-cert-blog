@@ -14,3 +14,6 @@ exclude: [README.md, _templates]
 
 # Post categories shown as filters on the home page
 categories_list: [Progress, Findings, Research]
+
+# Where "Submit a post" sends submissions (via formsubmit.co)
+submissions_email: sufyanansar2873@gmail.com

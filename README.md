@@ -10,7 +10,7 @@ A team blog built with Jekyll and hosted free on GitHub Pages. There's no server
 5. Add each teammate as a collaborator (**Settings → Collaborators**) and add them to `_data/authors.yml`.
 
 ## Publishing a post
-- **Easy way:** click **Write a post** on the site. It opens GitHub with the file already filled in. Click **Commit changes**.
+- **Team members:** use **Submit a post** on the site. The post is emailed to the admin (through formsubmit.co), who checks it and saves the `markdown_file` text as the `save_as` path in `_posts/`.
 - **Manual way:** copy `_templates/post.md` to `_posts/YYYY-MM-DD-my-title.md` and commit.
 
 Categories are Progress, Findings and Research. To change them, edit `categories_list` in `_config.yml`.
