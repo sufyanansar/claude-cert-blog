@@ -1,5 +1,5 @@
 # One entry per team member. The key (e.g. "sufyan") is what goes in a post's `author:` field.
 sufyan:
   name: Muhammed Sufyan
-  github: YOUR-GITHUB-USERNAME
+  github: sufyanansar
   bio: Team lead
