@@ -1,0 +1,40 @@
+---
+layout: default
+title: Write a post
+permalink: /write/
+---
+<h1>Write a post</h1>
+<p>Fill this in and click <b>Open in GitHub</b>. GitHub opens a new file with everything already filled in. Check it, then click <b>Commit changes</b>. Your post goes live in about a minute.</p>
+
+<form id="w" class="card">
+  <label>Title <input id="t" required></label>
+  <label>Your author key (see the Team page) <input id="a" required placeholder="sufyan"></label>
+  <label>Category
+    <select id="c">{% for c in site.categories_list %}<option>{{ c }}</option>{% endfor %}</select>
+  </label>
+  <label>Tags (comma separated) <input id="g" placeholder="prompting, tool-use"></label>
+  <label>Body (Markdown)
+    <textarea id="b" rows="14">## What I worked on
+
+## What I learned
+
+## Resources
+</textarea>
+  </label>
+  <button class="btn" type="submit">Open in GitHub</button>
+</form>
+
+<script>
+  document.getElementById('w').onsubmit = function (e) {
+    e.preventDefault();
+    var v = function (id) { return document.getElementById(id).value.trim(); };
+    var date = new Date().toISOString().slice(0, 10);
+    var slug = v('t').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    var tags = v('g').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var body = '---\nlayout: post\ntitle: "' + v('t').replace(/"/g, '\\"') + '"\n' +
+      'author: ' + v('a') + '\ncategory: ' + v('c') + '\ntags: [' + tags.join(', ') + ']\n---\n\n' +
+      document.getElementById('b').value + '\n';
+    window.open('https://github.com/{{ site.github_user }}/{{ site.repo }}/new/main/_posts?filename=' +
+      date + '-' + slug + '.md&value=' + encodeURIComponent(body), '_blank');
+  };
+</script>

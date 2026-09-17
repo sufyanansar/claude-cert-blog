@@ -1,0 +1,43 @@
+:root { --bg:#faf9f5; --fg:#1f1e1d; --muted:#6b6862; --card:#fff; --line:#e8e4da; --accent:#c96442; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#1f1e1d; --fg:#f0eee6; --muted:#a8a49a; --card:#2a2926; --line:#3a3834; --accent:#e08a6a; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.65 Georgia, serif; }
+.wrap { max-width:780px; margin:auto; padding:0 16px; }
+a { color:var(--accent); }
+
+header.site { border-bottom:1px solid var(--line); font-family:system-ui, sans-serif; }
+header .wrap { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; padding:14px 16px; }
+.brand { font-weight:700; color:var(--fg); text-decoration:none; }
+nav { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+nav a { text-decoration:none; color:var(--fg); }
+
+.btn, button { background:var(--accent); color:#fff !important; border:0; border-radius:8px; padding:8px 14px; font:600 14px system-ui, sans-serif; cursor:pointer; text-decoration:none; }
+.hero { padding:32px 0 8px; }
+.hero h1 { margin:0; }
+.hero p { color:var(--muted); }
+.filters { display:flex; gap:8px; flex-wrap:wrap; }
+.filters button { background:var(--card); color:var(--fg) !important; border:1px solid var(--line); }
+.filters button.on { background:var(--accent); color:#fff !important; border-color:var(--accent); }
+
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:18px 0; }
+.card h2 { margin:6px 0; font-size:1.35rem; }
+.card h2 a { color:var(--fg); text-decoration:none; }
+.card h2 a:hover { color:var(--accent); }
+
+.meta, .tags, small, footer { font:14px system-ui, sans-serif; color:var(--muted); }
+.tags a { margin-right:6px; }
+.pill { display:inline-block; padding:1px 9px; border-radius:99px; background:var(--line); color:var(--fg); margin-right:6px; font-weight:600; }
+.pill-progress { background:#dbe8d4; color:#2d4a22; }
+.pill-findings { background:#f5dccf; color:#7a3417; }
+.pill-research { background:#d9e0f0; color:#23355e; }
+
+.post h1 { font-size:2.1rem; line-height:1.2; }
+.content img { max-width:100%; }
+pre { overflow-x:auto; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:8px; }
+code { font-size:.9em; }
+
+label { display:block; margin:12px 0; font:600 14px system-ui, sans-serif; }
+input, select, textarea { display:block; width:100%; margin-top:4px; padding:8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); font:15px ui-monospace, monospace; }
+footer { padding:40px 16px; }

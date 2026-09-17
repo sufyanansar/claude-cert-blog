@@ -1,0 +1,14 @@
+---
+layout: default
+---
+{% assign a = site.data.authors[page.author] %}
+<article class="post">
+  <div class="meta">
+    <span class="pill pill-{{ page.category | downcase }}">{{ page.category }}</span>
+    {{ page.date | date: "%B %-d, %Y" }} · by {{ a.name | default: page.author }}
+  </div>
+  <h1>{{ page.title }}</h1>
+  <div class="content">{{ content }}</div>
+  <div class="tags">{% for t in page.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">#{{ t }}</a> {% endfor %}</div>
+  <p class="meta"><a href="https://github.com/{{ site.github_user }}/{{ site.repo }}/edit/main/{{ page.path }}">✎ Edit this post on GitHub</a></p>
+</article>

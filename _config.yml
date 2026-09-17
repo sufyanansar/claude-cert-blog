@@ -1,0 +1,16 @@
+title: Claude Certification Journal
+description: Our team's progress, findings and research on the road to Claude Certification.
+
+# CHANGE THESE to your GitHub account / repo name
+github_user: YOUR-GITHUB-USERNAME
+repo: claude-cert-blog
+baseurl: "/claude-cert-blog"   # use "" if the repo is named <user>.github.io
+url: "https://YOUR-GITHUB-USERNAME.github.io"
+
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+plugins: [jekyll-feed, jekyll-seo-tag]
+exclude: [README.md, _templates]
+
+# Post categories shown as filters on the home page
+categories_list: [Progress, Findings, Research]

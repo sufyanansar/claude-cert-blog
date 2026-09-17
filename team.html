@@ -1,0 +1,14 @@
+---
+layout: default
+title: Team
+permalink: /team/
+---
+<h1>Team</h1>
+{% for m in site.data.authors %}
+{% assign ps = site.posts | where: "author", m[0] %}
+<section class="card">
+  <h2>{{ m[1].name }}</h2>
+  <p class="meta">{{ m[1].bio }} · <a href="https://github.com/{{ m[1].github }}">@{{ m[1].github }}</a> · {{ ps.size }} post(s) · author key: <code>{{ m[0] }}</code></p>
+  <ul>{% for p in ps %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endfor %}</ul>
+</section>
+{% endfor %}

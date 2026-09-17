@@ -1,0 +1,10 @@
+{% assign a = site.data.authors[include.post.author] %}
+<article class="card">
+  <div class="meta">
+    <span class="pill pill-{{ include.post.category | downcase }}">{{ include.post.category }}</span>
+    {{ include.post.date | date: "%b %-d, %Y" }} · {{ a.name | default: include.post.author }}
+  </div>
+  <h2><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h2>
+  <p>{{ include.post.excerpt | strip_html | truncatewords: 35 }}</p>
+  <div class="tags">{% for t in include.post.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">#{{ t }}</a> {% endfor %}</div>
+</article>

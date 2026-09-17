@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+  <div class="filters">
+    <button data-f="all" class="on">All</button>
+    {% for c in site.categories_list %}<button data-f="{{ c | downcase }}">{{ c }}</button>{% endfor %}
+  </div>
+</section>
+
+<div id="posts">
+  {% for post in site.posts %}
+  <div data-cat="{{ post.category | downcase }}">{% include post-card.html post=post %}</div>
+  {% endfor %}
+</div>
+
+<script>
+  document.querySelectorAll('.filters button').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('.filters button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      document.querySelectorAll('#posts > div').forEach(function (d) {
+        d.hidden = b.dataset.f !== 'all' && d.dataset.cat !== b.dataset.f;
+      });
+    };
+  });
+</script>
